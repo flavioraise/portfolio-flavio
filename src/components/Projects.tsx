@@ -33,16 +33,6 @@ export default function Projects() {
                     code ↗
                   </a>
                 )}
-                {project.demo && (
-                  <a
-                    href={project.demo}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-muted transition-colors hover:text-route"
-                  >
-                    demo ↗
-                  </a>
-                )}
               </div>
             </div>
 
@@ -53,16 +43,28 @@ export default function Projects() {
               {project.description}
             </p>
 
-            <ul className="mt-5 flex flex-wrap gap-2">
-              {project.tech.map((tech) => (
-                <li
-                  key={tech}
-                  className="rounded border border-line px-2 py-0.5 font-mono text-xs text-muted"
+            <div className="mt-5 flex items-end justify-between gap-4">
+              <ul className="flex flex-wrap gap-2">
+                {project.tech.map((tech) => (
+                  <li
+                    key={tech}
+                    className="rounded border border-line px-2 py-0.5 font-mono text-xs text-muted"
+                  >
+                    {tech}
+                  </li>
+                ))}
+              </ul>
+              {project.demo && (
+                <a
+                  href={project.demo}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="shrink-0 font-mono text-xs text-muted transition-colors hover:text-route"
                 >
-                  {tech}
-                </li>
-              ))}
-            </ul>
+                  demo ↗
+                </a>
+              )}
+            </div>
           </article>
         ))}
       </div>

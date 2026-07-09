@@ -43,6 +43,14 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    title: "Bike Maps",
+    description:
+      "A self-hosted routing engine that finds the most fun ride instead of the fastest — scoring roads by curviness, mountain passes and scenery while penalizing motorways and city traffic. Built on GraphHopper with a custom fun-score baked into the routing graph.",
+    tech: ["React", "TypeScript", "MapLibre", "GraphHopper", "Python", "Docker"],
+    repo: "https://github.com/Fl4ffo/bike-maps",
+    demo: "https://bike-map.flavioraise.com/",
+  },
+  {
     title: "Personal Portfolio",
     description:
       "This site — a single-page portfolio built with Next.js and Tailwind CSS, containerized with Docker for VPS deployment.",
