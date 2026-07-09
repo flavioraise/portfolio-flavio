@@ -1,0 +1,19 @@
+<svg width="800" height="1000" viewBox="0 0 800 1000" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Portrait placeholder">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="800" y2="1000" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#15151d"/>
+      <stop offset="1" stop-color="#0b0b10"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.32" r="0.6">
+      <stop stop-color="#6e7bff" stop-opacity="0.42"/>
+      <stop offset="1" stop-color="#6e7bff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="800" height="1000" fill="url(#bg)"/>
+  <rect width="800" height="1000" fill="url(#glow)"/>
+  <!-- simple avatar silhouette -->
+  <circle cx="400" cy="410" r="120" fill="#6e7bff" fill-opacity="0.16" stroke="#6e7bff" stroke-opacity="0.5" stroke-width="2"/>
+  <path d="M250 720c0-95 67-165 150-165s150 70 150 165" fill="#6e7bff" fill-opacity="0.16" stroke="#6e7bff" stroke-opacity="0.5" stroke-width="2"/>
+  <text x="400" y="430" text-anchor="middle" font-family="'IBM Plex Mono', ui-monospace, monospace" font-size="86" font-weight="600" fill="#f4f4f7" letter-spacing="4">FR</text>
+  <text x="400" y="835" text-anchor="middle" font-family="'IBM Plex Mono', ui-monospace, monospace" font-size="24" fill="#93939f" letter-spacing="6">YOUR&#160;PHOTO&#160;HERE</text>
+</svg>

@@ -1,59 +1,115 @@
+"use client";
+
+import Link from "next/link";
+import { motion, useReducedMotion } from "motion/react";
 import { profile, socials } from "@/lib/data";
 
-// Fixed satellite coordinates for the topology graph (viewBox 440 x 400)
-const NODES = [
-  { x: 80, y: 82, labelY: 62, route: "route-1", node: "node-1" },
-  { x: 372, y: 98, labelY: 78, route: "route-2", node: "node-2" },
-  { x: 378, y: 300, labelY: 324, route: "route-3", node: "node-3" },
-  { x: 86, y: 316, labelY: 340, route: "route-4", node: "node-4" },
-];
-const CENTER = { x: 220, y: 200 };
+const EASE = [0.22, 1, 0.36, 1] as [number, number, number, number];
+
+// One line of the big name, revealed by sliding up from behind a mask.
+function NameLine({
+  children,
+  delay,
+  reduce,
+}: {
+  children: string;
+  delay: number;
+  reduce: boolean;
+}) {
+  return (
+    <span className="block overflow-hidden">
+      <motion.span
+        className="block"
+        initial={reduce ? false : { y: "110%" }}
+        animate={{ y: "0%" }}
+        transition={{ duration: 0.9, delay, ease: EASE }}
+      >
+        {children}
+      </motion.span>
+    </span>
+  );
+}
 
 export default function Hero() {
+  const reduce = useReducedMotion() ?? false;
+
+  const fade = {
+    hidden: reduce ? {} : { opacity: 0, y: 16 },
+    show: (i: number) => ({
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6, delay: 0.5 + i * 0.08, ease: EASE },
+    }),
+  };
+
   return (
-    <section id="top" className="border-b border-line">
-      <div className="mx-auto grid max-w-5xl items-center gap-10 px-6 py-20 sm:py-24 md:grid-cols-[1fr_1fr] md:gap-6">
+    <section id="top" className="relative overflow-hidden">
+      <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-6 pb-16 pt-16 sm:pt-24 md:grid-cols-[1.05fr_0.95fr] md:gap-10 md:pb-24">
         {/* Left: the pitch */}
         <div>
-          <p className="mb-6 inline-flex items-center gap-2 rounded-full border border-line px-3 py-1 font-mono text-xs text-muted">
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full rounded-full bg-route/40 pulse-ring" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-route" />
-            </span>
-            available for work
-          </p>
-
-          <h1 className="font-display text-5xl font-bold leading-[0.95] tracking-tight sm:text-6xl">
-            Flavio
-            <br />
-            Raise
+          <h1 className="font-display text-[clamp(3rem,11vw,7rem)] font-bold uppercase leading-[0.86] tracking-tight">
+            <NameLine delay={0.15} reduce={reduce}>
+              Flavio
+            </NameLine>
+            <NameLine delay={0.27} reduce={reduce}>
+              Raise
+            </NameLine>
           </h1>
 
-          <p className="mt-4 font-mono text-sm text-route sm:text-base">
+          <motion.p
+            custom={1}
+            variants={fade}
+            initial="hidden"
+            animate="show"
+            className="mt-5 font-mono text-sm text-muted sm:text-base"
+          >
             {profile.role}
-          </p>
+          </motion.p>
 
-          <p className="mt-6 max-w-md leading-relaxed text-muted">
+          <motion.p
+            custom={2}
+            variants={fade}
+            initial="hidden"
+            animate="show"
+            className="mt-6 max-w-md leading-relaxed text-muted"
+          >
             {profile.intro}
-          </p>
+          </motion.p>
 
-          <div className="mt-8 flex flex-wrap items-center gap-3">
+          <motion.div
+            custom={3}
+            variants={fade}
+            initial="hidden"
+            animate="show"
+            className="mt-9 flex flex-wrap items-center gap-3"
+          >
             <a
-              href="#projects"
-              className="rounded-md bg-route px-5 py-2.5 text-sm font-medium text-surface transition-transform hover:-translate-y-0.5"
+              href="#work"
+              className="rounded-full bg-accent px-6 py-3 text-sm font-medium text-bg shadow-soft transition-transform duration-300 hover:-translate-y-0.5"
             >
-              View projects
+              View work
             </a>
+            <Link
+              href="/experience"
+              className="rounded-full border border-line px-6 py-3 text-sm font-medium transition-colors hover:border-accent hover:text-accent"
+            >
+              Experience
+            </Link>
             <a
               href="#contact"
-              className="rounded-md border border-line px-5 py-2.5 text-sm font-medium transition-colors hover:border-route hover:text-route"
+              className="rounded-full border border-line px-6 py-3 text-sm font-medium transition-colors hover:border-accent hover:text-accent"
             >
               Get in touch
             </a>
-          </div>
+          </motion.div>
 
-          <div className="mt-8 flex flex-wrap gap-x-6 gap-y-2 font-mono text-xs text-muted">
-            <span>{profile.location}</span>
+          <motion.div
+            custom={4}
+            variants={fade}
+            initial="hidden"
+            animate="show"
+            className="mt-9 flex flex-wrap gap-x-6 gap-y-2 font-mono text-xs text-muted"
+          >
             {socials.map((s) => (
               <a
                 key={s.label}
@@ -65,78 +121,31 @@ export default function Hero() {
                 {s.label.toLowerCase()} ↗
               </a>
             ))}
-          </div>
+          </motion.div>
         </div>
 
-        {/* Right: the signature — a network topology of what Flavio does */}
-        <div className="relative">
-          <div className="blueprint-grid absolute inset-0" aria-hidden />
-          <svg
-            viewBox="0 0 440 400"
-            className="relative w-full"
-            role="img"
-            aria-label="Network diagram: Flavio connected to Web, Systems, Networks and Databases."
-          >
-            {/* routes */}
-            {NODES.map((n) => (
-              <line
-                key={n.route}
-                x1={CENTER.x}
-                y1={CENTER.y}
-                x2={n.x}
-                y2={n.y}
-                className={`route ${n.route} stroke-route`}
-                strokeWidth={1.5}
-                strokeOpacity={0.55}
-              />
-            ))}
-
-            {/* satellite nodes */}
-            {profile.focus.map((label, i) => {
-              const n = NODES[i];
-              return (
-                <g key={label} className={`node-satellite ${n.node}`}>
-                  <circle cx={n.x} cy={n.y} r={6} className="fill-route" />
-                  <circle
-                    cx={n.x}
-                    cy={n.y}
-                    r={11}
-                    className="fill-none stroke-route"
-                    strokeOpacity={0.3}
-                  />
-                  <text
-                    x={n.x}
-                    y={n.labelY}
-                    textAnchor="middle"
-                    fontSize={13}
-                    className="fill-ink font-mono"
-                  >
-                    {label}
-                  </text>
-                </g>
-              );
-            })}
-
-            {/* center node */}
-            <circle
-              cx={CENTER.x}
-              cy={CENTER.y}
-              r={34}
-              className="fill-none stroke-route pulse-ring"
-              strokeWidth={1.5}
+        {/* Right: portrait */}
+        <motion.div
+          className="relative mx-auto w-full max-w-sm md:mx-0 md:ml-auto"
+          initial={reduce ? false : { opacity: 0, scale: 0.96, y: 20 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{ duration: 0.9, delay: 0.35, ease: EASE }}
+        >
+          <div className="group/photo relative aspect-[4/5] overflow-hidden rounded-3xl border border-line bg-surface shadow-soft">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={profile.photo}
+              alt={`Portrait of ${profile.name}`}
+              className="h-full w-full object-cover object-top grayscale contrast-[1.08] brightness-[0.8] transition-[filter] duration-700 ease-out group-hover/photo:grayscale-0 group-hover/photo:brightness-100"
             />
-            <circle cx={CENTER.x} cy={CENTER.y} r={34} className="fill-ink" />
-            <text
-              x={CENTER.x}
-              y={CENTER.y + 4}
-              textAnchor="middle"
-              fontSize={15}
-              className="fill-surface font-mono"
-            >
-              flavio
-            </text>
-          </svg>
-        </div>
+            {/* darken toward the canvas for depth */}
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-bg/80 via-bg/15 to-bg/10" />
+            {/* location chip */}
+            <div className="absolute bottom-4 left-4 rounded-full border border-line bg-bg/70 px-3 py-1 font-mono text-xs text-ink backdrop-blur">
+              {profile.location}
+            </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   );

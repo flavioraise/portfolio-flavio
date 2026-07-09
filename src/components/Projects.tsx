@@ -1,71 +1,73 @@
+"use client";
+
+import { motion, useReducedMotion } from "motion/react";
 import Section from "@/components/Section";
 import { projects } from "@/lib/data";
 
 export default function Projects() {
-  return (
-    <Section
-      id="projects"
-      title="Projects"
-      meta={`${projects.length} ${projects.length === 1 ? "repo" : "repos"}`}
-    >
-      <div className="grid gap-5 sm:grid-cols-2">
-        {projects.map((project, i) => (
-          <article
-            key={i}
-            className="group relative flex flex-col rounded-lg border border-line bg-surface p-6 transition-all hover:-translate-y-0.5 hover:border-route"
-          >
-            {/* schematic connection port */}
-            <span
-              aria-hidden
-              className="absolute -left-px -top-px h-3 w-3 border-l-2 border-t-2 border-route opacity-0 transition-opacity group-hover:opacity-100"
-            />
+  const reduce = useReducedMotion();
 
-            <div className="mb-4 flex items-center justify-between font-mono text-xs">
-              <span className="text-muted">{project.tech[0]}</span>
+  return (
+    <Section id="work" title="Personal Projects" meta={`${projects.length} projects`}>
+      <div className="grid gap-6 md:grid-cols-2">
+        {projects.map((project, i) => (
+          <motion.article
+            key={i}
+            initial={reduce ? false : { opacity: 0, y: 28 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{
+              duration: 0.6,
+              delay: i * 0.1,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+            className="group relative flex flex-col overflow-hidden rounded-2xl border border-line bg-surface p-7 transition-all duration-300 hover:-translate-y-1 hover:border-accent/40 hover:bg-elevated hover:shadow-glow sm:p-8"
+          >
+            {/* index + links */}
+            <div className="mb-6 flex items-center justify-between font-mono text-xs text-muted">
+              <span>{String(i + 1).padStart(2, "0")}</span>
               <div className="flex gap-4">
                 {project.repo && (
                   <a
                     href={project.repo}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-muted transition-colors hover:text-route"
+                    className="transition-colors hover:text-accent"
                   >
                     code ↗
+                  </a>
+                )}
+                {project.demo && (
+                  <a
+                    href={project.demo}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="transition-colors hover:text-accent"
+                  >
+                    demo ↗
                   </a>
                 )}
               </div>
             </div>
 
-            <h3 className="font-display text-xl font-semibold">
+            <h3 className="font-display text-2xl font-semibold tracking-tight transition-colors group-hover:text-accent sm:text-3xl">
               {project.title}
             </h3>
-            <p className="mt-2 flex-1 text-sm leading-relaxed text-muted">
+            <p className="mt-3 flex-1 leading-relaxed text-muted">
               {project.description}
             </p>
 
-            <div className="mt-5 flex items-end justify-between gap-4">
-              <ul className="flex flex-wrap gap-2">
-                {project.tech.map((tech) => (
-                  <li
-                    key={tech}
-                    className="rounded border border-line px-2 py-0.5 font-mono text-xs text-muted"
-                  >
-                    {tech}
-                  </li>
-                ))}
-              </ul>
-              {project.demo && (
-                <a
-                  href={project.demo}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="shrink-0 font-mono text-xs text-muted transition-colors hover:text-route"
+            <ul className="mt-7 flex flex-wrap gap-2">
+              {project.tech.map((tech) => (
+                <li
+                  key={tech}
+                  className="rounded-full border border-line px-3 py-1 font-mono text-xs text-muted"
                 >
-                  demo ↗
-                </a>
-              )}
-            </div>
-          </article>
+                  {tech}
+                </li>
+              ))}
+            </ul>
+          </motion.article>
         ))}
       </div>
     </Section>

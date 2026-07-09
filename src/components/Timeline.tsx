@@ -1,49 +1,61 @@
+"use client";
+
+import { motion, useReducedMotion } from "motion/react";
 import Section from "@/components/Section";
 import { timeline } from "@/lib/data";
 
 export default function Timeline() {
+  const reduce = useReducedMotion();
+
   return (
     <Section id="experience" title="Experience" meta="2021 — present">
-      {/* A route through Flavio's history — each stop is a node */}
-      <ol className="relative ml-3 border-l border-dashed border-route/40">
+      <div className="flex flex-col">
         {timeline.map((item, i) => (
-          <li key={i} className="mb-12 ml-8 last:mb-0">
-            {/* node marker */}
-            <span className="absolute -left-[9px] mt-1 flex h-4 w-4 items-center justify-center">
-              <span className="h-4 w-4 rounded-full border border-route bg-paper" />
-              <span className="absolute h-1.5 w-1.5 rounded-full bg-route" />
-            </span>
-
-            <div className="mb-1 flex flex-wrap items-center gap-3 font-mono text-xs">
-              <span className="text-muted">
-                {String(i + 1).padStart(2, "0")}
-              </span>
-              <span className="text-muted">·</span>
+          <motion.div
+            key={i}
+            initial={reduce ? false : { opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{
+              duration: 0.5,
+              delay: i * 0.08,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+            className="group grid gap-4 border-b border-line py-8 transition-colors first:border-t last:border-b hover:bg-surface/40 md:grid-cols-[0.8fr_2fr] md:gap-10 md:px-4"
+          >
+            {/* left: period + kind */}
+            <div className="flex items-center gap-3 font-mono text-xs">
               <span className="text-muted">{item.period}</span>
               <span
                 className={
                   item.kind === "Work"
-                    ? "rounded px-1.5 py-0.5 text-route ring-1 ring-route/30"
-                    : "rounded px-1.5 py-0.5 text-muted ring-1 ring-line"
+                    ? "rounded-full px-2 py-0.5 text-accent ring-1 ring-accent/30"
+                    : "rounded-full px-2 py-0.5 text-muted ring-1 ring-line"
                 }
               >
                 {item.kind.toLowerCase()}
               </span>
             </div>
 
-            <h3 className="font-display text-lg font-semibold sm:text-xl">
-              {item.role}
-            </h3>
-            <p className="text-sm font-medium text-ink">
-              {item.org}
-              <span className="font-normal text-muted"> · {item.location}</span>
-            </p>
-            <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted">
-              {item.summary}
-            </p>
-          </li>
+            {/* right: details */}
+            <div>
+              <h3 className="font-display text-xl font-semibold tracking-tight transition-colors group-hover:text-accent sm:text-2xl">
+                {item.role}
+              </h3>
+              <p className="mt-1 text-sm font-medium text-ink">
+                {item.org}
+                <span className="font-normal text-muted">
+                  {" "}
+                  · {item.location}
+                </span>
+              </p>
+              <p className="mt-3 max-w-2xl leading-relaxed text-muted">
+                {item.summary}
+              </p>
+            </div>
+          </motion.div>
         ))}
-      </ol>
+      </div>
     </Section>
   );
 }

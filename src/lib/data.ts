@@ -8,6 +8,9 @@ export const profile = {
   available: true,
   intro:
     "Recent IT graduate from Venice. I build web applications and enjoy working across software, systems and networks — currently looking for my first role in tech.",
+  // Portrait shown in the hero. Drop your photo in /public and point this at it
+  // (e.g. "/portrait.jpg"). A placeholder ships at /portrait.svg.
+  photo: "/portrait.png",
   // Nodes shown in the hero topology graph
   focus: ["Web", "Systems", "Networks", "Databases"],
   stack: [
@@ -49,13 +52,6 @@ export const projects: Project[] = [
     tech: ["React", "TypeScript", "MapLibre", "GraphHopper", "Python", "Docker"],
     repo: "https://github.com/Fl4ffo/bike-maps",
     demo: "https://bike-map.flavioraise.com/",
-  },
-  {
-    title: "Personal Portfolio",
-    description:
-      "This site — a single-page portfolio built with Next.js and Tailwind CSS, containerized with Docker for VPS deployment.",
-    tech: ["Next.js", "TypeScript", "Tailwind", "Docker"],
-    repo: "https://github.com/simonesiega/portfolio-flavio",
   },
   {
     title: "AI Companion",

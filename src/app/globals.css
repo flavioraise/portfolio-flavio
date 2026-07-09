@@ -1,95 +1,88 @@
 @import "tailwindcss";
 
 :root {
-  --paper: #e8e4d9;
-  --surface: #f6f4ee;
-  --ink: #16243b;
-  --muted: #4b5563;
-  --route: #1f55d0;
-  --signal: #e14b27;
-  --line: rgba(22, 36, 59, 0.12);
+  /* Dark & bold palette — near-black canvas, electric periwinkle accent */
+  --bg: #08080b;        /* page canvas */
+  --surface: #111117;   /* cards */
+  --elevated: #17171f;  /* raised / hover */
+  --ink: #f4f4f7;       /* primary text */
+  --muted: #93939f;     /* secondary text */
+  --line: rgba(255, 255, 255, 0.1);
+  --accent: #f4f4f7;    /* monochrome — accent folds into white */
 }
 
 @theme inline {
-  --color-paper: var(--paper);
+  --color-bg: var(--bg);
   --color-surface: var(--surface);
+  --color-elevated: var(--elevated);
   --color-ink: var(--ink);
   --color-muted: var(--muted);
-  --color-route: var(--route);
-  --color-signal: var(--signal);
   --color-line: var(--line);
+  --color-accent: var(--accent);
   --font-display: var(--ff-display);
   --font-sans: var(--ff-sans);
   --font-mono: var(--ff-mono);
+
+  /* Depth language — neutral shadows only */
+  --shadow-soft: 0 1px 2px rgba(0, 0, 0, 0.5),
+    0 16px 44px -18px rgba(0, 0, 0, 0.7);
+  --shadow-glow: 0 0 0 1px rgba(255, 255, 255, 0.12),
+    0 24px 70px -24px rgba(0, 0, 0, 0.8);
 }
 
 body {
   font-family: var(--ff-sans), system-ui, sans-serif;
-  background-color: var(--paper);
+  background-color: var(--bg);
   color: var(--ink);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
 
 ::selection {
-  background: var(--signal);
-  color: var(--surface);
+  background: var(--accent);
+  color: #fff;
 }
 
-/* Blueprint grid — used sparingly, only behind the hero topology */
-.blueprint-grid {
-  background-image:
-    linear-gradient(var(--line) 1px, transparent 1px),
-    linear-gradient(90deg, var(--line) 1px, transparent 1px);
-  background-size: 34px 34px;
-  -webkit-mask-image: radial-gradient(ellipse at center, #000 40%, transparent 78%);
-  mask-image: radial-gradient(ellipse at center, #000 40%, transparent 78%);
+/* Ambient radial light (behind contact) — neutral, very subtle */
+.glow-radial {
+  background: radial-gradient(
+    60% 55% at 50% 0%,
+    rgba(255, 255, 255, 0.05),
+    transparent 72%
+  );
 }
 
-/* --- Signature motion: the topology assembles itself on load --- */
-.route {
-  stroke-dasharray: 320;
-  stroke-dashoffset: 320;
+/* Subtle text glow for the loader counter */
+.text-accent-glow {
+  text-shadow: 0 0 24px rgba(255, 255, 255, 0.25);
 }
-.node-satellite {
-  opacity: 1;
-}
+
+/* Pulsing "available" dot */
 .pulse-ring {
   transform-box: fill-box;
   transform-origin: center;
 }
-
 @media (prefers-reduced-motion: no-preference) {
-  .route {
-    animation: route-draw 1s ease forwards;
-  }
-  .route-2 { animation-delay: 0.12s; }
-  .route-3 { animation-delay: 0.24s; }
-  .route-4 { animation-delay: 0.36s; }
-
-  .node-satellite {
-    opacity: 0;
-    animation: node-in 0.5s ease forwards;
-  }
-  .node-1 { animation-delay: 0.55s; }
-  .node-2 { animation-delay: 0.67s; }
-  .node-3 { animation-delay: 0.79s; }
-  .node-4 { animation-delay: 0.91s; }
-
   .pulse-ring {
     animation: pulse-ring 2.8s ease-out infinite;
   }
 }
-
-@keyframes route-draw {
-  to { stroke-dashoffset: 0; }
-}
-@keyframes node-in {
-  from { opacity: 0; transform: translateY(6px); }
-  to { opacity: 1; transform: translateY(0); }
-}
 @keyframes pulse-ring {
-  0% { transform: scale(0.85); opacity: 0.5; }
-  70% { transform: scale(1.7); opacity: 0; }
-  100% { transform: scale(1.7); opacity: 0; }
+  0% { transform: scale(0.85); opacity: 0.55; }
+  70% { transform: scale(1.8); opacity: 0; }
+  100% { transform: scale(1.8); opacity: 0; }
+}
+
+/* Infinite tech marquee under the hero */
+.marquee-track {
+  animation: marquee 30s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
+}
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
 }
