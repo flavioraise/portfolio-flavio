@@ -1,0 +1,10 @@
+services:
+  portfolio:
+    build: .
+    image: portfolio-flavio
+    container_name: portfolio-flavio
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
