@@ -21,7 +21,7 @@ export default function Projects() {
               delay: i * 0.1,
               ease: [0.22, 1, 0.36, 1],
             }}
-            className="group relative flex flex-col overflow-hidden rounded-2xl border border-line bg-surface p-7 transition-all duration-300 hover:-translate-y-1 hover:border-accent/40 hover:bg-elevated hover:shadow-glow sm:p-8"
+            className="group relative flex flex-col overflow-hidden rounded-2xl border border-line bg-surface p-7 transition-all duration-300 hover:-translate-y-1 hover:border-accent/60 hover:bg-elevated hover:shadow-neon sm:p-8"
           >
             {/* links */}
             <div className="mb-6 flex items-center justify-end font-mono text-xs text-muted">
@@ -49,7 +49,7 @@ export default function Projects() {
               </div>
             </div>
 
-            <h3 className="font-display text-2xl font-semibold tracking-tight transition-colors group-hover:text-accent sm:text-3xl">
+            <h3 className="font-display text-2xl font-semibold tracking-tight transition-all duration-300 group-hover:text-accent group-hover:text-accent-glow sm:text-3xl">
               {project.title}
             </h3>
             <p className="mt-3 flex-1 leading-relaxed text-muted">

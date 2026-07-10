@@ -3,27 +3,61 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 
-// Full-screen dark curtain with a counting loader, then lifts to reveal the site.
+const EASE = [0.22, 1, 0.36, 1] as [number, number, number, number];
+
+// The "FR" wordmark, drawn as light strokes on a 1600×900 (16:9) canvas so it
+// can be centred and share a coordinate space with the incoming edge beams.
+const CX = 800;
+const CY = 450;
+
+// Each stroke is drawn on with pathLength; order/delay staggers the reveal.
+const LETTER_STROKES = [
+  // F
+  "M640 360 L640 540", // stem
+  "M640 360 L735 360", // top bar
+  "M640 450 L708 450", // middle bar
+  // R
+  "M800 540 L800 360", // stem (grows upward)
+  "M800 360 L892 360", // top bar
+  "M892 360 L892 442", // shoulder
+  "M892 442 L800 442", // middle bar
+  "M834 442 L916 540", // leg
+];
+
+// Beams originate off the four screen edges and point at the logo centre.
+const EDGE_POINTS: [number, number][] = [
+  [400, -40],
+  [800, -40],
+  [1200, -40],
+  [400, 940],
+  [800, 940],
+  [1200, 940],
+  [-40, 300],
+  [-40, 600],
+  [1640, 300],
+  [1640, 600],
+];
+
+// Stop each beam just shy of the mark so it reads as feeding into the logo.
+function beamPath([ex, ey]: [number, number]) {
+  const dx = CX - ex;
+  const dy = CY - ey;
+  const len = Math.hypot(dx, dy);
+  const stop = 150; // distance from centre where the beam terminates
+  const tx = ex + (dx / len) * (len - stop);
+  const ty = ey + (dy / len) * (len - stop);
+  return `M${ex} ${ey} L${tx.toFixed(1)} ${ty.toFixed(1)}`;
+}
+
 export default function Preloader() {
   const [loading, setLoading] = useState(true);
-  const [pct, setPct] = useState(0);
-  const reduce = useReducedMotion();
+  const reduce = useReducedMotion() ?? false;
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
-    const total = reduce ? 300 : 1600;
-    const start = performance.now();
-    let raf = 0;
-
-    const tick = (now: number) => {
-      const t = Math.min((now - start) / total, 1);
-      // ease-out for a natural deceleration toward 100
-      setPct(Math.round((1 - Math.pow(1 - t, 3)) * 100));
-      if (t < 1) raf = requestAnimationFrame(tick);
-      else setLoading(false);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
+    const hold = reduce ? 500 : 2500;
+    const t = setTimeout(() => setLoading(false), hold);
+    return () => clearTimeout(t);
   }, [reduce]);
 
   useEffect(() => {
@@ -35,44 +69,105 @@ export default function Preloader() {
       {loading && (
         <motion.div
           key="preloader"
-          className="fixed inset-0 z-[100] flex flex-col justify-between bg-bg px-6 py-8 sm:px-10 sm:py-10"
+          className="fixed inset-0 z-[100] flex flex-col items-center justify-center overflow-hidden bg-bg"
           initial={{ y: 0 }}
           exit={{ y: "-100%" }}
           transition={{ duration: 0.9, ease: [0.76, 0, 0.24, 1] }}
         >
-          <div className="glow-radial pointer-events-none absolute inset-x-0 top-0 h-1/2" />
+          {/* Bloom that swells as the letters resolve */}
+          <motion.div
+            aria-hidden
+            className="pointer-events-none absolute inset-0"
+            style={{
+              background:
+                "radial-gradient(42% 42% at 50% 50%, rgba(255,255,255,0.10), transparent 70%)",
+            }}
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1.4, delay: reduce ? 0 : 0.6, ease: EASE }}
+          />
 
-          <div className="relative flex items-center gap-3 font-mono text-sm text-muted">
-            <span className="relative flex h-2.5 w-2.5">
-              <span className="absolute inline-flex h-full w-full rounded-full bg-accent/50 pulse-ring" />
-              <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-accent" />
-            </span>
-            flavio.raise
-          </div>
+          <svg
+            className="absolute inset-0 h-full w-full"
+            viewBox="0 0 1600 900"
+            preserveAspectRatio="xMidYMid slice"
+            aria-hidden
+          >
+            <defs>
+              <filter
+                id="fr-glow"
+                x="-50%"
+                y="-50%"
+                width="200%"
+                height="200%"
+              >
+                <feGaussianBlur in="SourceGraphic" stdDeviation="6" result="b" />
+                <feMerge>
+                  <feMergeNode in="b" />
+                  <feMergeNode in="SourceGraphic" />
+                </feMerge>
+              </filter>
+            </defs>
 
-          <div className="relative flex items-end justify-between gap-6">
-            <motion.p
-              className="max-w-md font-display text-2xl font-semibold leading-tight text-ink sm:text-4xl"
-              initial={reduce ? false : { opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, ease: "easeOut" }}
+            {/* Beams sweeping in from the edges */}
+            {!reduce && (
+              <g
+                stroke="white"
+                strokeWidth={1.4}
+                fill="none"
+                vectorEffect="non-scaling-stroke"
+              >
+                {EDGE_POINTS.map((p, i) => (
+                  <motion.path
+                    key={i}
+                    d={beamPath(p)}
+                    strokeLinecap="round"
+                    initial={{ pathLength: 0, opacity: 0 }}
+                    animate={{
+                      pathLength: 1,
+                      opacity: [0, 0.28, 0.05],
+                    }}
+                    transition={{
+                      duration: 1,
+                      delay: i * 0.05,
+                      ease: EASE,
+                    }}
+                  />
+                ))}
+              </g>
+            )}
+
+            {/* The FR mark — nudged right so it reads optically centred */}
+            <g
+              stroke="var(--ink)"
+              strokeWidth={11}
+              fill="none"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              filter="url(#fr-glow)"
+              transform="translate(30 0)"
             >
-              Software developer
-              <br />
-              <span className="text-muted">systems &amp; networks</span>
-            </motion.p>
-            <span className="font-mono text-4xl font-medium tabular-nums text-accent text-accent-glow sm:text-6xl">
-              {pct}
-            </span>
-          </div>
-
-          {/* progress line */}
-          <div className="relative mt-6 h-px w-full overflow-hidden bg-line">
-            <div
-              className="h-full bg-accent transition-[width] duration-75 ease-linear"
-              style={{ width: `${pct}%` }}
-            />
-          </div>
+              {LETTER_STROKES.map((d, i) => (
+                <motion.path
+                  key={i}
+                  d={d}
+                  initial={{ pathLength: 0, opacity: 0 }}
+                  animate={{ pathLength: 1, opacity: 1 }}
+                  transition={{
+                    pathLength: {
+                      duration: reduce ? 0.01 : 0.55,
+                      delay: reduce ? 0 : 0.65 + i * 0.08,
+                      ease: EASE,
+                    },
+                    opacity: {
+                      duration: 0.2,
+                      delay: reduce ? 0 : 0.65 + i * 0.08,
+                    },
+                  }}
+                />
+              ))}
+            </g>
+          </svg>
         </motion.div>
       )}
     </AnimatePresence>

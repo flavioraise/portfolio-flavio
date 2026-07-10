@@ -10,10 +10,11 @@ export default function Footer() {
     >
       <div className="glow-radial pointer-events-none absolute inset-x-0 top-0 h-full" />
 
-      {/* oversized wordmark as a background watermark, flush to the page's right edge */}
+      {/* oversized wordmark as a background watermark, flush to the page's right edge.
+          Offset is a % of the footer (not vh) so it stays put on very tall phones. */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 flex -translate-y-[34vh] select-none flex-col items-end justify-center sm:translate-y-0"
+        className="pointer-events-none absolute inset-0 flex -translate-y-[38%] select-none flex-col items-end justify-center sm:translate-y-0"
       >
         <p className="text-right font-display text-[19vw] font-bold uppercase leading-[0.82] tracking-tighter text-ink/[0.08]">
           Flavio
