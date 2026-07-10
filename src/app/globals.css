@@ -45,7 +45,7 @@ body {
 
 ::selection {
   background: var(--accent);
-  color: #fff;
+  color: var(--bg);
 }
 
 /* Ambient radial light (behind contact) — neutral, very subtle */
