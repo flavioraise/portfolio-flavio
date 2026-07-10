@@ -43,10 +43,33 @@ export default function Hero() {
   };
 
   return (
-    <section id="top" className="relative overflow-hidden">
-      <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-6 pb-16 pt-16 sm:pt-24 md:grid-cols-[1.05fr_0.95fr] md:gap-10 md:pb-24">
-        {/* Left: the pitch */}
-        <div>
+    <section
+      id="top"
+      className="relative flex min-h-[92vh] items-center overflow-hidden"
+    >
+      {/* Portrait as a full-bleed background, anchored right */}
+      <motion.div
+        aria-hidden
+        className="pointer-events-none absolute inset-y-0 right-0 w-full md:w-[62%]"
+        initial={reduce ? false : { opacity: 0, scale: 1.04 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 1.1, ease: EASE }}
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={profile.photo}
+          alt={`Portrait of ${profile.name}`}
+          className="h-full w-full object-cover object-[70%_top] contrast-[1.05] md:object-top"
+        />
+        {/* shade fading in from the left so the text stays readable */}
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-bg via-bg/85 to-bg/10 md:via-bg/70 md:to-transparent" />
+        {/* grounding fade at the bottom into the marquee */}
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-bg to-transparent" />
+      </motion.div>
+
+      <div className="relative mx-auto w-full max-w-7xl px-6 py-20 sm:py-28">
+        {/* the pitch */}
+        <div className="max-w-xl">
           <h1 className="font-display text-[clamp(3rem,11vw,7rem)] font-bold uppercase leading-[0.86] tracking-tight">
             <NameLine delay={0.15} reduce={reduce}>
               Flavio
@@ -123,29 +146,6 @@ export default function Hero() {
             ))}
           </motion.div>
         </div>
-
-        {/* Right: portrait */}
-        <motion.div
-          className="relative mx-auto w-full max-w-sm md:mx-0 md:ml-auto"
-          initial={reduce ? false : { opacity: 0, scale: 0.96, y: 20 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.35, ease: EASE }}
-        >
-          <div className="group/photo relative aspect-[4/5] overflow-hidden rounded-3xl border border-line bg-surface shadow-soft">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={profile.photo}
-              alt={`Portrait of ${profile.name}`}
-              className="h-full w-full object-cover object-top grayscale contrast-[1.08] brightness-[0.8] transition-[filter] duration-700 ease-out group-hover/photo:grayscale-0 group-hover/photo:brightness-100"
-            />
-            {/* darken toward the canvas for depth */}
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-bg/80 via-bg/15 to-bg/10" />
-            {/* location chip */}
-            <div className="absolute bottom-4 left-4 rounded-full border border-line bg-bg/70 px-3 py-1 font-mono text-xs text-ink backdrop-blur">
-              {profile.location}
-            </div>
-          </div>
-        </motion.div>
       </div>
     </section>
   );

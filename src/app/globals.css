@@ -44,11 +44,22 @@ body {
 }
 
 /* Ambient radial light (behind contact) — neutral, very subtle */
+/* bloom anchored to the top edge (the main/footer seam), fading downward */
 .glow-radial {
   background: radial-gradient(
-    60% 55% at 50% 0%,
-    rgba(255, 255, 255, 0.05),
-    transparent 72%
+    70% 65% at 50% 0%,
+    rgba(255, 255, 255, 0.11),
+    transparent 75%
+  );
+}
+
+/* mirror of .glow-radial anchored to the bottom edge, fading upward — sits on
+   the bottom of <main> so the footer bloom continues smoothly across the seam */
+.glow-radial-up {
+  background: radial-gradient(
+    70% 100% at 50% 100%,
+    rgba(255, 255, 255, 0.11),
+    transparent 75%
   );
 }
 

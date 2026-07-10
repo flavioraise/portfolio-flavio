@@ -10,19 +10,19 @@ export default function Footer() {
     >
       <div className="glow-radial pointer-events-none absolute inset-x-0 top-0 h-full" />
 
-      <div className="relative mx-auto max-w-7xl overflow-hidden px-6 pb-16 pt-32 sm:pt-40">
-        {/* oversized wordmark as a background watermark */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 flex select-none flex-col items-end justify-center px-6"
-        >
-          <p className="text-right font-display text-[19vw] font-bold uppercase leading-[0.82] tracking-tighter text-ink/[0.08]">
-            Flavio
-            <br />
-            Raise
-          </p>
-        </div>
+      {/* oversized wordmark as a background watermark, flush to the page's right edge */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 flex select-none flex-col items-end justify-center"
+      >
+        <p className="text-right font-display text-[19vw] font-bold uppercase leading-[0.82] tracking-tighter text-ink/[0.08]">
+          Flavio
+          <br />
+          Raise
+        </p>
+      </div>
 
+      <div className="relative mx-auto max-w-7xl px-6 pb-16 pt-32 sm:pt-40">
         <Reveal className="relative z-10 max-w-3xl">
           <p className="mb-5 font-mono text-xs uppercase tracking-widest text-accent">
             establish connection
@@ -65,15 +65,6 @@ export default function Footer() {
             ))}
           </div>
         </Reveal>
-      </div>
-
-      <div className="relative border-t border-line">
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-6 py-6 font-mono text-xs text-muted sm:flex-row">
-          <p>
-            © {new Date().getFullYear()} {profile.name}
-          </p>
-          <p>Mestre · Venice, IT</p>
-        </div>
       </div>
     </footer>
   );
