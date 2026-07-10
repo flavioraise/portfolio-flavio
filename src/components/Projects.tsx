@@ -8,7 +8,7 @@ export default function Projects() {
   const reduce = useReducedMotion();
 
   return (
-    <Section id="work" title="Personal Projects" meta={`${projects.length} projects`}>
+    <Section id="work" title="Personal Projects" className="pb-10 sm:pb-14">
       <div className="grid gap-6 md:grid-cols-2">
         {projects.map((project, i) => (
           <motion.article
@@ -23,9 +23,8 @@ export default function Projects() {
             }}
             className="group relative flex flex-col overflow-hidden rounded-2xl border border-line bg-surface p-7 transition-all duration-300 hover:-translate-y-1 hover:border-accent/40 hover:bg-elevated hover:shadow-glow sm:p-8"
           >
-            {/* index + links */}
-            <div className="mb-6 flex items-center justify-between font-mono text-xs text-muted">
-              <span>{String(i + 1).padStart(2, "0")}</span>
+            {/* links */}
+            <div className="mb-6 flex items-center justify-end font-mono text-xs text-muted">
               <div className="flex gap-4">
                 {project.repo && (
                   <a

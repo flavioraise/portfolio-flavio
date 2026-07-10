@@ -53,13 +53,6 @@ export const projects: Project[] = [
     repo: "https://github.com/Fl4ffo/bike-maps",
     demo: "https://bike-map.flavioraise.com/",
   },
-  {
-    title: "AI Companion",
-    description:
-      "A conversational AI companion powered by local LLMs running with Ollama. Add a repo link and details here.",
-    tech: ["Python", "Ollama", "LLMs"],
-    repo: "#",
-  },
 ];
 
 export type TimelineItem = {

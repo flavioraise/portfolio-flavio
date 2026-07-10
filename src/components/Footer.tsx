@@ -13,7 +13,7 @@ export default function Footer() {
       {/* oversized wordmark as a background watermark, flush to the page's right edge */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 flex select-none flex-col items-end justify-center"
+        className="pointer-events-none absolute inset-0 flex -translate-y-[34vh] select-none flex-col items-end justify-center sm:translate-y-0"
       >
         <p className="text-right font-display text-[19vw] font-bold uppercase leading-[0.82] tracking-tighter text-ink/[0.08]">
           Flavio
@@ -22,7 +22,7 @@ export default function Footer() {
         </p>
       </div>
 
-      <div className="relative mx-auto max-w-7xl px-6 pb-16 pt-32 sm:pt-40">
+      <div className="relative mx-auto max-w-7xl px-6 pb-16 pt-48 sm:pt-56">
         <Reveal className="relative z-10 max-w-3xl">
           <p className="mb-5 font-mono text-xs uppercase tracking-widest text-accent">
             establish connection
@@ -38,7 +38,9 @@ export default function Footer() {
           </p>
 
           <a
-            href={`mailto:${profile.email}`}
+            href={`https://mail.google.com/mail/?view=cm&fs=1&to=${profile.email}`}
+            target="_blank"
+            rel="noopener noreferrer"
             className="mt-9 inline-flex items-center gap-2 rounded-full bg-accent px-7 py-3.5 font-mono text-sm text-bg shadow-soft transition-transform duration-300 hover:-translate-y-0.5"
           >
             <span>→</span>
