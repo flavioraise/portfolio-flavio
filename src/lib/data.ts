@@ -46,6 +46,13 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    title: "Claude Code Ladder",
+    description:
+      "A skill for Claude Code that turns a big feature request into a ladder of small, dependency-ordered rungs — each with its own done condition. It plans the ladder, pauses for approval, then climbs rung by rung, verifying each step and persisting progress so long builds can resume across sessions.",
+    tech: ["Claude Code", "Bash", "PowerShell", "Git", "Automation"],
+    repo: "https://github.com/Fl4ffo/claude-code-ladder",
+  },
+  {
     title: "Bike Maps",
     description:
       "A self-hosted routing engine that finds the most fun ride instead of the fastest — scoring roads by curviness, mountain passes and scenery while penalizing motorways and city traffic. Built on GraphHopper with a custom fun-score baked into the routing graph.",

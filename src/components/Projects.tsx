@@ -9,7 +9,7 @@ export default function Projects() {
 
   return (
     <Section id="work" title="Personal Projects" className="pb-10 sm:pb-14">
-      <div className="grid gap-6 md:grid-cols-2">
+      <div className="grid auto-rows-fr grid-cols-1 gap-6 sm:grid-cols-2">
         {projects.map((project, i) => (
           <motion.article
             key={i}
