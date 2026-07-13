@@ -7,7 +7,7 @@ export const profile = {
   email: "flavio.raise07@gmail.com",
   available: true,
   intro:
-    "Recent IT graduate from Venice. I build web applications and enjoy working across software, systems and networks — currently looking for my first role in tech.",
+    "Recent IT graduate from Venice. I build web applications and enjoy working across software, systems and networks.",
   // Portrait shown in the hero. Drop your photo in /public and point this at it
   // (e.g. "/portrait.jpg"). A placeholder ships at /portrait.svg.
   photo: "/portrait.png",
@@ -32,7 +32,7 @@ export type Social = {
 };
 
 export const socials: Social[] = [
-  { label: "GitHub", href: "https://github.com/Fl4ffo" },
+  { label: "GitHub", href: "https://github.com/flavioraise" },
   { label: "Email", href: "mailto:flavio.raise07@gmail.com" },
 ];
 
@@ -50,14 +50,14 @@ export const projects: Project[] = [
     description:
       "A skill for Claude Code that turns a big feature request into a ladder of small, dependency-ordered rungs — each with its own done condition. It plans the ladder, pauses for approval, then climbs rung by rung, verifying each step and persisting progress so long builds can resume across sessions.",
     tech: ["Claude Code", "Bash", "PowerShell", "Git", "Automation"],
-    repo: "https://github.com/Fl4ffo/claude-code-ladder",
+    repo: "https://github.com/flavioraise/claude-code-ladder",
   },
   {
     title: "Bike Maps",
     description:
       "A self-hosted routing engine that finds the most fun ride instead of the fastest — scoring roads by curviness, mountain passes and scenery while penalizing motorways and city traffic. Built on GraphHopper with a custom fun-score baked into the routing graph.",
     tech: ["React", "TypeScript", "MapLibre", "GraphHopper", "Python", "Docker"],
-    repo: "https://github.com/Fl4ffo/bike-maps",
+    repo: "https://github.com/flavioraise/bike-maps",
     demo: "https://bike-map.flavioraise.com/",
   },
 ];
