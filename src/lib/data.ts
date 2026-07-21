@@ -58,7 +58,6 @@ export const projects: Project[] = [
       "A self-hosted routing engine that finds the most fun ride instead of the fastest — scoring roads by curviness, mountain passes and scenery while penalizing motorways and city traffic. Built on GraphHopper with a custom fun-score baked into the routing graph.",
     tech: ["React", "TypeScript", "MapLibre", "GraphHopper", "Python", "Docker"],
     repo: "https://github.com/flavioraise/bike-maps",
-    demo: "https://bike-map.flavioraise.com/",
   },
 ];
 
