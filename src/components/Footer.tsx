@@ -16,7 +16,7 @@ export default function Footer() {
         aria-hidden
         className="pointer-events-none absolute inset-0 flex -translate-y-[38%] select-none flex-col items-end justify-center sm:translate-y-0"
       >
-        <p className="text-right font-display text-[19vw] font-bold uppercase leading-[0.82] tracking-tighter text-ink/[0.08]">
+        <p className="text-right font-display text-[19vw] font-bold uppercase leading-[0.82] tracking-[-0.01em] text-ink/[0.08]">
           Flavio
           <br />
           Raise
