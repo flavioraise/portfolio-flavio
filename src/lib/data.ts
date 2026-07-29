@@ -46,6 +46,13 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    title: "Claude Code Voice",
+    description:
+      "Italian voice dictation for Claude Code that never leaves your machine. It records from the mic, stops on its own when you stop talking, then transcribes and translates to English locally with faster-whisper — handing the text straight to Claude as the prompt, with a live overlay showing the transcript and audio levels.",
+    tech: ["Python", "faster-whisper", "sounddevice", "Tkinter", "CUDA"],
+    repo: "https://github.com/flavioraise/claude-code-voice",
+  },
+  {
     title: "Claude Code Ladder",
     description:
       "A skill for Claude Code that turns a big feature request into a ladder of small, dependency-ordered rungs — each with its own done condition. It plans the ladder, pauses for approval, then climbs rung by rung, verifying each step and persisting progress so long builds can resume across sessions.",
