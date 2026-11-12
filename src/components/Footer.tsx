@@ -1,5 +1,4 @@
-import Link from "next/link";
-import { profile, socials } from "@/lib/data";
+import { profile } from "@/lib/data";
 import Reveal from "@/components/Reveal";
 
 export default function Footer() {
@@ -29,9 +28,9 @@ export default function Footer() {
             establish connection
           </p>
           <h2 className="font-display text-5xl font-bold tracking-tight sm:text-7xl">
-            Let&apos;s build
+            Get in
             <br />
-            something.
+            touch.
           </h2>
           <p className="mt-6 max-w-md leading-relaxed text-muted">
             I&apos;m looking for my first role in tech and open to
@@ -47,26 +46,6 @@ export default function Footer() {
             <span>→</span>
             {profile.email}
           </a>
-
-          <div className="mt-9 flex flex-wrap gap-x-6 gap-y-2 font-mono text-sm">
-            <Link
-              href="/experience"
-              className="text-muted transition-colors hover:text-accent"
-            >
-              experience →
-            </Link>
-            {socials.map((s) => (
-              <a
-                key={s.label}
-                href={s.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-muted transition-colors hover:text-accent"
-              >
-                {s.label.toLowerCase()} ↗
-              </a>
-            ))}
-          </div>
         </Reveal>
       </div>
     </footer>

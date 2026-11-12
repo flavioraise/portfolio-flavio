@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion, useReducedMotion } from "motion/react";
-import { profile, socials } from "@/lib/data";
+import { profile } from "@/lib/data";
 
 const EASE = [0.22, 1, 0.36, 1] as [number, number, number, number];
 
@@ -63,7 +63,7 @@ export default function Hero() {
         />
         {/* shade fading in from the left so the text stays readable */}
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-bg via-bg/85 to-bg/10 md:via-bg/70 md:to-transparent" />
-        {/* grounding fade at the bottom into the marquee */}
+        {/* grounding fade at the bottom */}
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-bg to-transparent" />
       </motion.div>
 
@@ -106,15 +106,9 @@ export default function Hero() {
             animate="show"
             className="mt-9 flex flex-wrap items-center gap-3"
           >
-            <a
-              href="#work"
-              className="rounded-full bg-accent px-6 py-3 text-sm font-medium text-bg shadow-soft transition-transform duration-300 hover:-translate-y-0.5"
-            >
-              View work
-            </a>
             <Link
               href="/experience"
-              className="rounded-full border border-line px-6 py-3 text-sm font-medium transition-colors hover:border-accent hover:text-accent"
+              className="rounded-full bg-accent px-6 py-3 text-sm font-medium text-bg shadow-soft transition-transform duration-300 hover:-translate-y-0.5"
             >
               Experience
             </Link>
@@ -124,26 +118,6 @@ export default function Hero() {
             >
               Get in touch
             </a>
-          </motion.div>
-
-          <motion.div
-            custom={4}
-            variants={fade}
-            initial="hidden"
-            animate="show"
-            className="mt-9 flex flex-wrap gap-x-6 gap-y-2 font-mono text-xs text-muted"
-          >
-            {socials.map((s) => (
-              <a
-                key={s.label}
-                href={s.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="transition-colors hover:text-ink"
-              >
-                {s.label.toLowerCase()} ↗
-              </a>
-            ))}
           </motion.div>
         </div>
       </div>

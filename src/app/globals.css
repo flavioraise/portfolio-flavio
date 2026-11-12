@@ -88,17 +88,3 @@ body {
   70% { transform: scale(1.8); opacity: 0; }
   100% { transform: scale(1.8); opacity: 0; }
 }
-
-/* Infinite tech marquee under the hero */
-.marquee-track {
-  animation: marquee 30s linear infinite;
-}
-@media (prefers-reduced-motion: reduce) {
-  .marquee-track {
-    animation: none;
-  }
-}
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}

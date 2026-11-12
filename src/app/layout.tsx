@@ -21,13 +21,13 @@ const mono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Flavio Raise — Software & Networks",
+  title: "Flavio Raise — Systems & Networks",
   description:
-    "Flavio Raise — junior software developer with a background in systems and networks, based near Venice. Projects, experience and how to reach me.",
+    "Flavio Raise — IT technician working on systems, networks and security, based near Venice. Experience and how to reach me.",
   openGraph: {
-    title: "Flavio Raise — Software & Networks",
+    title: "Flavio Raise — Systems & Networks",
     description:
-      "Junior software developer with a background in systems and networks, based near Venice.",
+      "IT technician working on systems, networks and security, based near Venice.",
     type: "website",
     locale: "en_US",
   },

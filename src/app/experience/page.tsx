@@ -5,7 +5,7 @@ import Timeline from "@/components/Timeline";
 export const metadata: Metadata = {
   title: "Experience — Flavio Raise",
   description:
-    "Work and education history of Flavio Raise — junior software developer with a background in systems and networks.",
+    "Work and education history of Flavio Raise — IT technician working on systems, networks and security.",
 };
 
 export default function ExperiencePage() {
