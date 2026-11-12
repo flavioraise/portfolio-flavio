@@ -6,6 +6,7 @@ type SectionProps = {
   index?: string;
   meta?: string;
   className?: string;
+  divider?: boolean;
   children: React.ReactNode;
 };
 
@@ -15,13 +16,16 @@ export default function Section({
   index,
   meta,
   className = "",
+  divider = true,
   children,
 }: SectionProps) {
   return (
     <section id={id} className={`scroll-mt-24 py-24 sm:py-32 ${className}`}>
       <div className="mx-auto max-w-7xl px-6">
         <Reveal>
-          <div className="mb-14 flex items-end justify-between gap-4 border-b border-line pb-5">
+          <div
+            className={`mb-14 flex items-end justify-between gap-4 pb-5 ${divider ? "border-b border-line" : ""}`}
+          >
             <div className="flex items-baseline gap-4">
               {index && (
                 <span className="font-mono text-sm text-accent">{index}</span>

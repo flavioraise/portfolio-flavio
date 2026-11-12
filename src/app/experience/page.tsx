@@ -21,12 +21,6 @@ export default function ExperiencePage() {
           </span>
           flavio.raise
         </Link>
-        <Link
-          href="/#contact"
-          className="rounded-full border border-line px-4 py-1.5 font-mono text-sm text-ink transition-colors hover:border-ink"
-        >
-          let&apos;s talk
-        </Link>
       </header>
 
       <main className="flex-1">

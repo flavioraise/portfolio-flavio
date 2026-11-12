@@ -8,7 +8,7 @@ export default function Timeline() {
   const reduce = useReducedMotion();
 
   return (
-    <Section id="experience" title="Experience" meta="2021 — present">
+    <Section id="experience" title="Experience" meta="2021 — present" divider={false}>
       <div className="flex flex-col">
         {timeline.map((item, i) => (
           <motion.div
@@ -23,18 +23,9 @@ export default function Timeline() {
             }}
             className="group grid gap-4 border-b border-line py-8 transition-colors first:border-t last:border-b hover:bg-surface/40 md:grid-cols-[0.8fr_2fr] md:gap-10 md:px-4"
           >
-            {/* left: period + kind */}
+            {/* left: period */}
             <div className="flex items-center gap-3 font-mono text-xs">
               <span className="text-muted">{item.period}</span>
-              <span
-                className={
-                  item.kind === "Work"
-                    ? "rounded-full px-2 py-0.5 text-accent ring-1 ring-accent/30"
-                    : "rounded-full px-2 py-0.5 text-muted ring-1 ring-line"
-                }
-              >
-                {item.kind.toLowerCase()}
-              </span>
             </div>
 
             {/* right: details */}
