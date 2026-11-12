@@ -80,6 +80,15 @@ export type TimelineItem = {
 export const timeline: TimelineItem[] = [
   {
     kind: "Work",
+    period: "Aug 2026 – Present",
+    role: "IT Technician — Systems & Networks",
+    org: "Eyelink S.r.l.",
+    location: "Venice",
+    summary:
+      "System integrator focused on security, networking and business continuity. Working on network infrastructure, IT security, server virtualization and backup solutions with vendors like Microsoft, HPE Aruba, Clavister, VMware and Veeam.",
+  },
+  {
+    kind: "Work",
     period: "May – Jun 2025",
     role: "Intern — Programming & Databases",
     org: "Data4Prime",
@@ -89,7 +98,7 @@ export const timeline: TimelineItem[] = [
   },
   {
     kind: "Work",
-    period: "Nov 2024 – Present",
+    period: "Nov 2024 – Jul 2026",
     role: "Waiter",
     org: "Pizzeria Da Pino",
     location: "Mestre, Venice",
